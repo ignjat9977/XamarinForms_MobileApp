@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Proj.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             xmlns:vm="clr-namespace:Proj.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10,0,10,0" VerticalOptions="Center" Spacing="10">
+
+            <StackLayout>
+                <Label Text="Login Page" FontSize="Large"/>
+            </StackLayout>
+            <StackLayout Spacing="0">
+                <Label Text="Your email:"/>
+                <Entry Text="{Binding Email}"/>
+                <Label TextColor="Red" Text="{Binding EmailError}"/>
+            </StackLayout>
+            <StackLayout Spacing="0">
+                <Label Text="Your password:"/>
+                <Entry Text="{Binding Password}" IsPassword="True"/>
+                <Label TextColor="Red" Text="{Binding PasswordError}"/>
+            </StackLayout>
+            <StackLayout>
+                <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}" IsEnabled="{Binding FormValidator}"/>
+                <Label Text="Dont have an account? Please register here!" TextColor="blue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped">
+
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label TextColor="red" Text="{Binding LoginError}"/>
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

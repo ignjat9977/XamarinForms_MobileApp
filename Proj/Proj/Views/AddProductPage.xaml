@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Proj.Views.AddProductPage"
+             xmlns:vm="clr-namespace:Proj.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:AddProductPageVIewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Padding="20">
+                <Label Text="Add new product!"/>
+                <StackLayout Orientation="Vertical" Margin="0, 20,0,0" Spacing="0">
+                    <Label Text="Product Name"/>
+                    <Entry Text="{Binding Name}"/>
+                    <Label TextColor="red" Text="{Binding NameError}"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Margin="0, 20,0,0" Spacing="0">
+                    <Label Text="Product Description"/>
+                    <Editor MaxLength="500" Text="{Binding Description}" AutoSize="TextChanges"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Margin="0, 20,0,0" Spacing="0">
+                    <Label Text="Product Price"/>
+                    <Entry Text="{Binding Price}" Keyboard="Numeric"/>
+                    <Label TextColor="red" Text="{Binding PriceError}"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Margin="0, 20,0,0" Spacing="0">
+                    <Label Text="Product image"/>
+                    <Entry Text="{Binding Image}" />
+                    <Label TextColor="red" Text="{Binding ImageError}"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Margin="0, 20,0,0" Spacing="0">
+                    <Label Text="Product category"/>
+                    <Picker ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedItem}"
+                        ItemDisplayBinding="{Binding Name}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Button Command="{Binding AddNewCommand}" IsEnabled="{Binding FormValid}"  Text="Add product" />
+                    <Label Text="{Binding SuccessMessage}" TextColor="Green"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

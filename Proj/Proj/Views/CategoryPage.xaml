@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Proj.Views.CategoryPage"
+             xmlns:vm="clr-namespace:Proj.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:CategoryPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="See All Categories." FontSize="Medium"/>
+            <Picker Title="Select Category"
+                    TitleColor="Blue"
+                    ItemsSource="{Binding Categories}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedCategory}"
+                    />
+            <Label IsVisible="{Binding IsCategorySelected}" Text="Selected Category Info" FontSize="Large"/>
+            <Grid   IsVisible="{Binding IsCategorySelected}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Text="Id"/>
+                <Label Grid.Row="1" Grid.Column="0" Text="Name"/>
+
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding SelectedCategory.Id}"/>
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCategory.Name}"/>
+
+                <Button Text ="Delete" Grid.Row="2" Grid.Column="0" BackgroundColor="LightPink" Command="{Binding DeleteCommand}"/>
+                <Button Text ="Edit" Grid.Row="2" Grid.Column="1" BackgroundColor="Blue" Command="{Binding UpdateCommand}"/>
+            </Grid>
+            <StackLayout IsVisible="{Binding IsButtonActivated}">
+                <Label Text="Update Category"/>
+                <Entry Text="{Binding UpdateName}"/>
+                <Label TextColor="red" Text="{Binding UpdateNameError}"/>
+                <Button Text="Update Category" Command="{Binding UpdateCatCommand}" IsEnabled="{Binding IsFormValid}"/>
+            </StackLayout>
+            <StackLayout Margin="0,20,0,0">
+                <Label Text="Add new Cateogry"/>
+                <Entry Text="{Binding Name}"/>
+                <Label TextColor="red" Text="{Binding NameError}"/>
+                <Button Text="Add new Cateogory" Command="{Binding AddNewCommand}" IsEnabled="{Binding FormValid}"/>
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

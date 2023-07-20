@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Sample.InputKit"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             x:Class="Proj.Views.PproductPage"
+             xmlns:vm="clr-namespace:Proj.ViewModels">
+    <ContentPage.BindingContext>
+        <vm:ProductsPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="0">
+            <StackLayout>
+                <Button Text="Add new Product" Command="{Binding AddNewCommand}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="10,0,10,0" BackgroundColor="LightBlue">
+                <Label Text="Search" VerticalOptions="Center"/>
+                <Entry Text="{Binding Keyword}" WidthRequest="300"/>
+            </StackLayout>
+            <StackLayout  Padding="10" BackgroundColor="LightBlue" HeightRequest="370">
+                <CollectionView ItemsSource="{Binding Categories}" x:Name="collectionView">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnSpacing="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <input:CheckBox Grid.Column="0" Text="{Binding Name}" Grid.Row="1" Color="Black"
+                                                CheckChangedCommand="{Binding Path=BindingContext.CheckBoxChangedCommand, Source={x:Reference Name=collectionView}}" 
+                                                CommandParameter="{Binding}"
+                                                IsChecked="{Binding IsCheck, Mode=TwoWay}"
+                                                />
+
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </StackLayout>
+            <CollectionView ItemsSource="{Binding Products}" x:Name="collectionVieew">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItem BackgroundColor="LightGreen" 
+                                           Text="Edit"
+                                           Command="{Binding Source={x:Reference collectionVieew}, Path=BindingContext.EditCommand}"
+                                           CommandParameter="{Binding}"/>
+                                <SwipeItem BackgroundColor="LightPink" Text="Delete"
+                                           Command="{Binding Source={x:Reference collectionVieew}, Path=BindingContext.DeleteCommand}"
+                                           CommandParameter="{Binding}"/>
+                            </SwipeView.LeftItems>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="1" Text="Name"/>
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding Name}"/>
+
+                            <Label Grid.Column="0" Grid.Row="2" Text="Description"/>
+                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding Description}"/>
+
+                            <Label Grid.Column="0" Grid.Row="3" Text="Price"/>
+                            <Label Grid.Column="1" Grid.Row="3" Text="{Binding Price}"/>
+
+                            <Label Grid.Column="0" Grid.Row="4" Text="Image"/>
+                            <Label Grid.Column="1" Grid.Row="4" Text="{Binding Image}"/>
+
+                            <Label Grid.Column="0" Grid.Row="5" Text="Category Name"/>
+                            <Label Grid.Column="1" Grid.Row="5" Text="{Binding CategoryName}"/>
+
+                        </Grid>
+                     </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
